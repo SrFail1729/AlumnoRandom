@@ -159,6 +159,15 @@ fun AlumnosRandom() {
                     Text("Seleccionar alumno")
                 }
 
+                Spacer(modifier = Modifier.width(24.dp))
+
+                Button( enabled = alumnosSeleccionados.isNotEmpty() ,onClick = {
+
+                    alumnos.addAll(alumnosSeleccionados)
+
+                }) {
+                    Text("Recargar alumnos")
+                }
             }
         }
     }
