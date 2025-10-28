@@ -118,6 +118,26 @@ fun AlumnosRandom() {
                     color = Color(0xFF33691E)
                 )
 
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(0.9f)
+                        .height(200.dp)
+                        .background(Color(0xFFDCE775))
+                        .verticalScroll(scrollState)
+                ){
+                    Column (
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ){
+                        alumnosSeleccionados.forEach { alumno ->
+                            Text(
+                                text = alumno,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color(0xFF33691E)
+                            )
+                        }
+                    }
+                }
             }
 
 
