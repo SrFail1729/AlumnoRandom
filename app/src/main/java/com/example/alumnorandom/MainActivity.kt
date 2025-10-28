@@ -164,6 +164,10 @@ fun AlumnosRandom() {
                 Button( enabled = alumnosSeleccionados.isNotEmpty() ,onClick = {
 
                     alumnos.addAll(alumnosSeleccionados)
+                    //Vaciamos la lista de alumnos seleccionados
+                    alumnosSeleccionados.clear()
+                    //Elegimos un nuevo alumno de forma aleatoria
+                    alumnoActual = alumnos.random()
 
                 }) {
                     Text("Recargar alumnos")
