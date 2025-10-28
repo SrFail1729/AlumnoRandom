@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -64,9 +65,18 @@ fun LayoutApp() {
 
 @Composable
 fun AlumnosRandom() {
-    val alumnos = cargarAlumnos()
+    val alumnos = mutableListOf(
+        "Iván Bermejo Melia.",
+        "David Romero",
+        "Absael Rodrigez",
+        "Carlos Bermudez",
+        "David Berlinches"
+    )
 
-    var textoActual by remember { mutableStateOf(alumnos.random()) }
+    val alumnosSeleccionados = mutableListOf<String>()
+
+    var alumnoActual by remember { mutableStateOf(alumnos.random()) }
+
 
     Box(
         modifier = Modifier
@@ -75,25 +85,25 @@ fun AlumnosRandom() {
         contentAlignment = Alignment.Center
     ) {
         Column(
-            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
                     .height(120.dp)
-                    .background(Color(0xFFDCE775))
+                    .background(Color(0xFFDCE775)) // verde suave
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "${textoActual.nombre} ${textoActual.apellido}",
+                    text = alumnoActual,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Medium,
                     color = Color(0xFF33691E)
                 )
+                alumnos.remove(alumnoActual)
+                alumnosSeleccionados.add(alumnoActual)
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -102,57 +112,10 @@ fun AlumnosRandom() {
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Button(onClick = { textoActual = alumnos.random() }) {
-                    Text("Cambiar texto")
+                Button(onClick = { alumnoActual = alumnos.random() }) {
+                    Text("Seleccionar alumno")
                 }
             }
         }
     }
 }
-
-
-@Composable
-fun AnimacionAlumnoRandom(
-    listaAlumnos: List<Alumno>,
-    onResultado: (Alumno) -> Unit
-){
-    var alumnoInicial by remember { mutableStateOf(0) }
-    var animando by remember { mutableStateOf(false) }
-
-    //Animación
-    val animation by animateIntAsState(
-        targetValue = alumnoInicial,
-        animationSpec = tween (
-            durationMillis = 1000,
-            easing = LinearEasing
-        ),
-        finishedListener = {
-            onResultado (listaAlumnos[it % listaAlumnos.size])
-            animando = false
-        }
-    )
-
-    Row (
-        modifier = Modifier.fillMaxSize(),
-        horizontalArrangement = Arrangement.Center
-
-    ){
-        Button(
-            onClick = {
-                if (!animando){
-                    animando = true
-                    alumnoInicial = (alumnoInicial + (5..15).random()) % listaAlumnos.size
-                }
-            }
-        ){
-            Text("Elegir alumno")
-        }
-    }
-}
-fun cargarAlumnos(): List<Alumno> = arrayListOf(
-    Alumno("David", "Romero"),
-    Alumno("Giovanni","Marcano"),
-    Alumno("Ivan","Bermejo"),
-    Alumno("Carlos","Bermudez"),
-    Alumno("Absael","Rodrigez")
-)
