@@ -108,39 +108,18 @@ fun AlumnosRandom() {
             }
 
             Spacer(modifier = Modifier.height(24.dp))
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth(0.9f)
-                    .height(120.dp)
-                    .background(Color(0xFFDCE775))
-                    .padding(16.dp),
-                contentAlignment = Alignment.Center
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(
-                    modifier = Modifier.verticalScroll(scrollState),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "ALUMNOS SELECCIONADOS",
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF33691E)
-                    )
+                Text(
+                    text = "ALUMNOS SELECCIONADOS",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF33691E)
+                )
 
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    alumnosSeleccionados.forEach { alumno ->
-                        Text(
-                            text = alumno,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Medium,
-                            color = Color(0xFF33691E)
-                        )
-                    }
-
-                }
             }
+
 
             Spacer(modifier = Modifier.height(24.dp))
 
