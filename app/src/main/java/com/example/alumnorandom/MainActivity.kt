@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -68,11 +69,14 @@ fun LayoutApp() {
 @Composable
 fun AlumnosRandom() {
     val alumnos = remember { mutableListOf(
-        "Iván Bermejo Melia",
+        "Iván Bermejo",
         "David Romero",
         "Absael Rodrigez",
         "Carlos Bermudez",
-        "David Berlinches"
+        "David Berlinches",
+        "Giovanni Marcano",
+        "Adrian Garcia",
+        "Iker Toribio"
     ) }
 
     val alumnosSeleccionados = remember { mutableListOf<String>() }
@@ -95,7 +99,7 @@ fun AlumnosRandom() {
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
                     .height(120.dp)
-                    .background(Color(0xFFDCE775)) // verde suave
+                    .background(Color(0xFFDCE775))
                     .padding(16.dp),
                 contentAlignment = Alignment.Center
             ) {
@@ -109,21 +113,23 @@ fun AlumnosRandom() {
 
             Spacer(modifier = Modifier.height(24.dp))
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
                     text = "ALUMNOS SELECCIONADOS",
-                    fontSize = 12.sp,
+                    fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF33691E)
                 )
-
+                Spacer(modifier = Modifier.height(10.dp))
                 Box(
                     modifier = Modifier
                         .fillMaxWidth(0.9f)
-                        .height(200.dp)
+                        .height(120.dp)
                         .background(Color(0xFFDCE775))
                         .verticalScroll(scrollState)
+                        .padding(10.dp),
+                    contentAlignment = Alignment.TopCenter
                 ){
                     Column (
                         horizontalAlignment = Alignment.CenterHorizontally
