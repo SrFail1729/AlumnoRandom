@@ -65,15 +65,15 @@ fun LayoutApp() {
 
 @Composable
 fun AlumnosRandom() {
-    val alumnos = mutableListOf(
-        "Iván Bermejo Melia.",
+    val alumnos = remember { mutableListOf(
+        "Iván Bermejo Melia",
         "David Romero",
         "Absael Rodrigez",
         "Carlos Bermudez",
         "David Berlinches"
-    )
+    ) }
 
-    val alumnosSeleccionados = mutableListOf<String>()
+    val alumnosSeleccionados = remember { mutableListOf<String>() }
 
     var alumnoActual by remember { mutableStateOf(alumnos.random()) }
 
@@ -102,8 +102,6 @@ fun AlumnosRandom() {
                     fontWeight = FontWeight.Medium,
                     color = Color(0xFF33691E)
                 )
-                alumnos.remove(alumnoActual)
-                alumnosSeleccionados.add(alumnoActual)
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -112,7 +110,11 @@ fun AlumnosRandom() {
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Button(onClick = { alumnoActual = alumnos.random() }) {
+                Button(onClick = {
+                    alumnoActual = alumnos.random()
+                    alumnos.remove(alumnoActual)
+                    alumnosSeleccionados.add(alumnoActual)
+                }) {
                     Text("Seleccionar alumno")
                 }
             }
