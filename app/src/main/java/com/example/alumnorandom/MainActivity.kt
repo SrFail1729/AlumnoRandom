@@ -140,7 +140,6 @@ fun AlumnosRandom() {
                 }
             }
 
-
             Spacer(modifier = Modifier.height(24.dp))
 
             Row(
@@ -148,9 +147,14 @@ fun AlumnosRandom() {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Button(onClick = {
-                    alumnoActual = alumnos.random()
-                    alumnos.remove(alumnoActual)
-                    alumnosSeleccionados.add(alumnoActual)
+                    if (alumnos.isNotEmpty()){
+                        alumnoActual = alumnos.random()
+                        alumnos.remove(alumnoActual)
+                        alumnosSeleccionados.add(alumnoActual)
+                    }else{
+                        alumnoActual = "No quedan mas alumnos en la pull"
+                    }
+
                 }) {
                     Text("Seleccionar alumno")
                 }
