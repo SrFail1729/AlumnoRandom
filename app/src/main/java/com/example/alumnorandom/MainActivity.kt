@@ -4,6 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateIntAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -107,6 +110,45 @@ fun AlumnosRandom() {
     }
 }
 
+
+@Composable
+fun AnimacionAlumnoRandom(
+    listaAlumnos: List<Alumno>,
+    onResultado: (Alumno) -> Unit
+){
+    var alumnoInicial by remember { mutableStateOf(0) }
+    var animando by remember { mutableStateOf(false) }
+
+    //Animación
+    val animation by animateIntAsState(
+        targetValue = alumnoInicial,
+        animationSpec = tween (
+            durationMillis = 1000,
+            easing = LinearEasing
+        ),
+        finishedListener = {
+            onResultado (listaAlumnos[it % listaAlumnos.size])
+            animando = false
+        }
+    )
+
+    Row (
+        modifier = Modifier.fillMaxSize(),
+        horizontalArrangement = Arrangement.Center
+
+    ){
+        Button(
+            onClick = {
+                if (!animando){
+                    animando = true
+                    alumnoInicial = (alumnoInicial + (5..15).random()) % listaAlumnos.size
+                }
+            }
+        ){
+            Text("Elegir alumno")
+        }
+    }
+}
 fun cargarAlumnos(): List<Alumno> = arrayListOf(
     Alumno("David", "Romero"),
     Alumno("Giovanni","Marcano"),
